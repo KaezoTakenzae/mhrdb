@@ -10,9 +10,12 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import Monsters from '../screens/Monsters';
+import MonsterDetails from '../screens/MonsterDetails';
+import Quests from '../screens/Quests';
+import Other from '../screens/Other';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
+import Search from './Search';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,18 +24,25 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Monsters"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Monsters"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Quests"
         component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Other"
+        component={OtherNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -55,9 +65,17 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        name="Monsters"
+        component={Monsters}
+        options={{ headerTitle: props => <Search headerTitle='Monsters' {...props} /> }}
+      />
+      <TabOneStack.Screen
+        name="MonsterDetails"
+        component={MonsterDetails}
+        //options={{ headerTitle: props => {console.log('props', props); return <Search headerTitle='MonsterDetails' {...props} />} }}
+        options={(props: any) => ({
+          headerTitle: () => <Search headerTitle={props.route.params.name} {...props} />
+        })}
       />
     </TabOneStack.Navigator>
   );
@@ -69,10 +87,24 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        name="Quests"
+        component={Quests}
+        options={{ headerTitle: 'Quests' }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+
+const OtherStack = createStackNavigator<TabThreeParamList>();
+
+function OtherNavigator() {
+  return (
+    <OtherStack.Navigator>
+      <OtherStack.Screen
+        name="Other"
+        component={Other}
+        options={{ headerTitle: 'Other' }}
+      />
+    </OtherStack.Navigator>
   );
 }

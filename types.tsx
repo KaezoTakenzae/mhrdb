@@ -9,14 +9,28 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Monsters: undefined;
+  Quests: undefined;
+  Other: undefined;
 };
 
 export type TabOneParamList = {
-  TabOneScreen: undefined;
+  Monsters: undefined;
+  MonsterDetails: undefined;
 };
 
 export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+  Quests: undefined;
 };
+
+export type TabThreeParamList = {
+  Other: undefined;
+};
+
+export type MonsterItemData = {
+  item: MonsterItem
+}
+
+export type MonsterItem = {
+  name: String
+}

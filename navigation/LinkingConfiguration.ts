@@ -12,12 +12,12 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Monsters: {
             screens: {
               TabOneScreen: 'one',
             },
           },
-          TabTwo: {
+          Quests: {
             screens: {
               TabTwoScreen: 'two',
             },
